@@ -17,7 +17,33 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "notification": [
+        "dist/notification"
+      ],
+      "notification/*": [
+        "dist/notification/*"
+      ],
+      "users": [
+        "dist/users"
+      ],
+      "users/*": [
+        "dist/users/*"
+      ],
+      "payment": [
+        "dist/payment"
+      ],
+      "payment/*": [
+        "dist/payment/*"
+      ],
+      "analytics": [
+        "dist/analytics"
+      ],
+      "analytics/*": [
+        "dist/analytics/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

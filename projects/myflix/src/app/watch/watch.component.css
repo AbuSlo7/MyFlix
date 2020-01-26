@@ -1,0 +1,124 @@
+.cont {
+  display: flex;
+  background: white;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+}
+
+.video-c {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.controls {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  flex-wrap: wrap;
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(100%);
+  transition: all .2s;
+}
+.video-c:hover .controls {
+  transform: translateY(0);
+}
+.buttons {
+  padding: 10px;
+}
+
+.buttons button {
+  background: none;
+  border: 0px;
+  outline: 0px;
+  cursor: pointer;
+}
+
+.play:before {
+  content: '\f144';
+  font-family: 'Font Awesome 5 Free';
+  width: 25px;
+  height: 30px;
+  display: inline-block;
+  font-size: 28px;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pause:before {
+  content: '\f28b';
+  font-family: 'Font Awesome 5 Free';
+  width: 25px;
+  height: 30px;
+  display: inline-block;
+  font-size: 28px;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stop:before {
+  content: '\f28d';
+  font-family: 'Font Awesome 5 Free';
+  width: 25px;
+  height: 30px;
+  display: inline-block;
+  font-size: 28px;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+}
+
+.Mute {
+  width: 60px;
+  height: 30px;
+  display: inline-block;
+  font-size: 28px;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+}
+
+.Vol {
+   width: 30px;
+   height: 30px;
+   display: inline-block;
+   font-size: 28px;
+   color: white;
+   -webkit-font-smoothing: antialiased;
+ }
+
+.Full {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  font-size: 28px;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+}
+.orange-bar {
+  height: 10px;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.orange-juice {
+  height: 10px;
+  background-color: orangered;
+  width: 10px;
+}
+
+.buttons .myflix {
+  width: 80px;
+  height: 30px;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
+  -webkit-font-smoothing: antialiased;
+}
+.blue {
+  color: blue;
+}

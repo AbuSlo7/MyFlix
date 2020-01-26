@@ -1,0 +1,103 @@
+<div class="container-fluid" style="padding: 0px" *ngIf="main">
+    <div class="top-head">
+      <div style="background: rgba(0,0,0,0.5); padding: 25px; height: 600px">
+      <div class="row vertical-align" style=" width: 100%; margin: 0px">
+      <div class="col-6"><h1 (click)="goMain()" style="color: #E50914; font-weight: bold; cursor: pointer">MyFlix</h1></div>
+      <div class="col-6">
+        <div (click)="goSignin()" style="float: right" class="btn btn-danger">Sign in</div>
+      </div>
+    </div>
+      <div class="row" style="padding-top: 40px">
+        <div class="col-12">
+          <p style=" text-align: center; color: white; font-size: 35px; font-weight: bold">
+           <span>Unlimited films, TV</span><br>
+            <span>programmes and more.</span><br>
+            <span style="font-size: 20px">Watch anywhere. Cancel at any time.</span>
+          </p>
+        </div>
+        <div class="col-12">
+          <form>
+            <div class="form-group">
+              <div style="text-align: center">
+                <input style="display: inline; width: 400px" type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                <span class="btn btn-danger" (click)="goSignup()">TRY IT NOW ></span>
+                <br><span style="color: white; font-size: 20px">Ready to watch? Enter your email to create or access your account</span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+  <div class="row" style="background-color: black">
+      <div class="col-6" style="padding: 20px">
+        <p style="padding-top: 100px; padding-left: 100px; color: white; font-size: 25px; font-weight: bold">
+          <span>Enjoy on your Laptop.</span><br>
+          <span>Watch on any device with</span><br>
+          <span>an Internet connected</span><br>
+        </p>
+      </div>
+      <div class="col-6" style="padding: 30px">
+        <img src="../assets/pic1.gif" class="img-responsive" alt="pc gif">
+      </div>
+    </div>
+    <div class="row" style="background-color: black">
+      <div class="col-12">
+        <p style="color: white; font-size: 40px; text-align: center">
+          Frequently Asked Questions
+        </p>
+      </div>
+      <div class="col-12" style="padding: 50px">
+        <div id="accordion">
+          <div class="card" style="border-color: #303030;">
+            <div style="border-radius: 0px; cursor: pointer;" class="card-header head-color font"  data-toggle="collapse" href="#collapseThree">
+              <a style="text-decoration: none; color: white;" class="card-link">
+                <span>What is myFlix ?</span>
+                <span style="float: right; color: white">+</span>
+              </a>
+            </div>
+            <div id="collapseThree" class="collapse" data-parent="#accordion">
+              <div class="card-body head-color">
+              <p style=" font-size: 17px">
+                myFlix is a private project for DevOps course developed by Saleh Alajmi at University of Dundee
+              </p>
+              </div>
+            </div>
+          </div>
+          <div style="border: black solid 5px;"></div>
+          <div class="card" style="border-color: #303030;">
+            <div style="border-radius: 0px; cursor: pointer" class="card-header head-color font" data-toggle="collapse" href="#collapseFour">
+              <a style="text-decoration: none; color: white;" class="card-link">
+                <span>Where can I watch myFlix</span>
+                <span style="float: right; color: white">+</span>
+              </a>
+            </div>
+            <div id="collapseFour" class="collapse" data-parent="#accordion">
+              <div class="card-body head-color">
+                <p style="font-size: 17px">
+                  Any device with an internet connection, myFlix is not RESPONSIVE
+                </p>
+              </div>
+            </div>
+          </div>
+          <div style="border: black solid 5px;"></div>
+          <div class="card" style="border-color: #303030;">
+            <div style="border-radius: 0px; cursor: pointer" class="card-header head-color" data-toggle="collapse" href="#collapseFive">
+              <a style="text-decoration: none; color: white;" class="card-link">
+                <span>How do I cancel ?</span>
+                <span style="float: right; color: white">+</span>
+              </a>
+            </div>
+            <div id="collapseFive" class="collapse" data-parent="#accordion">
+              <div class="card-body head-color">
+                <p style=" =font-size: 17px">
+                  You can cancel your subscription anytime from your account
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<router-outlet></router-outlet>
