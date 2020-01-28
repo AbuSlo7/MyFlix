@@ -80,4 +80,10 @@ export class WatchComponent implements OnInit {
 
 
   }
+
+  goBack() {
+    this.shared.isWatch.next(false);
+    this.shared.isBrowse.next(true);
+    this.router.navigate(['/browse']);
+  }
 }
