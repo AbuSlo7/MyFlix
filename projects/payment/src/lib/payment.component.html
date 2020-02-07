@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-12" style="text-align: center; padding-bottom: 200px">
+    <form style="padding: 0px 500px">
+      <div class="form-group">
+        <input  type="text" class="form-control"  name="Fname" placeholder="First Name" pattern="^[A-Za-z \u0600-\u06FF]+$" [(ngModel)]="Fname" required>
+        <span *ngIf="FnameCheck" style="color: red">{{FnameCheckText}}</span>
+      </div>
+      <div class="form-group">
+        <input  type="text" class="form-control"  name="Lname" placeholder="Last Name" pattern="^[A-Za-z \u0600-\u06FF]+$" [(ngModel)]="Lname" required>
+        <span *ngIf="LnameCheck" style="color: red">{{LnameCheckText}}</span>
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control" name="CardNo" placeholder="Card Number" [(ngModel)]="CardNo" required>
+        <span *ngIf="CardNoCheck" style="color: red">{{CardNoCheckText}}</span>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-6">
+            <select class="form-control" name="DateMonth" [(ngModel)]="DateMonth" required>
+              <option *ngFor="let month of months">{{month}}</option>
+            </select>
+            <span *ngIf="DateCheckMonth" style="color: red">{{DateCheckMonthText}}</span>
+          </div>
+          <div class="col-6">
+            <select class="form-control" name="DateYear" [(ngModel)]="DateYear" required>
+              <option *ngFor="let year of years">{{year}}</option>
+            </select>
+            <span *ngIf="DateCheckYear" style="color: red">{{DateCheckYearText}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" name="CVV" placeholder="CVV" [(ngModel)]="CVV">
+        <span *ngIf="CVVCheck" style="color: red">{{CVVCheckText}}</span>
+      </div>
+    </form>
+  </div>
+</div>

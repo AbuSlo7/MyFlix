@@ -10,5 +10,6 @@ export class SharedService {
   public isLogin = new BehaviorSubject<boolean>(false);
   public isBrowse = new BehaviorSubject<boolean>(false);
   public isWatch = new BehaviorSubject<boolean>(false);
+  public isAuth = new BehaviorSubject<boolean>(false);
   constructor() { }
 }

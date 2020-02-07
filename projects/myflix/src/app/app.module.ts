@@ -8,15 +8,18 @@ import { AppRoutingModule, forRoute } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // importing Microservices
+
 import {NotificationModule} from 'notification';
 import {AnalyticsModule} from 'analytics';
 import {PaymentModule} from 'payment';
 import {UsersModule} from 'users';
+import {MoviesModule} from 'movies';
 
 import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import { BrowseComponent } from './browse/browse.component';
 import { WatchComponent } from './watch/watch.component';
+import {AuthGuard} from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -34,10 +37,11 @@ import { WatchComponent } from './watch/watch.component';
     AnalyticsModule,
     PaymentModule,
     UsersModule,
+    MoviesModule,
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

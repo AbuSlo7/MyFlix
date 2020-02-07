@@ -262,6 +262,41 @@
           }
         }
       }
+    },
+    "movies": {
+      "projectType": "library",
+      "root": "projects/movies",
+      "sourceRoot": "projects/movies/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/movies/tsconfig.lib.json",
+            "project": "projects/movies/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/movies/src/test.ts",
+            "tsConfig": "projects/movies/tsconfig.spec.json",
+            "karmaConfig": "projects/movies/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/movies/tsconfig.lib.json",
+              "projects/movies/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "myflix"
 }

@@ -42,6 +42,12 @@
       ],
       "analytics/*": [
         "dist/analytics/*"
+      ],
+      "movies": [
+        "dist/movies"
+      ],
+      "movies/*": [
+        "dist/movies/*"
       ]
     }
   },

@@ -1,7 +1,10 @@
 <div *ngIf="watch" style="margin: 0px; padding: 0px">
   <div class="cont" style="margin: 0px; padding: 0px; background-color: rgba(0, 0, 0, 0.75)">
-    <div class="video-c">
-      <video class="video" src="../assets/a.mp4" #videoPlayer></video>
+    <div class="video-c"  id="videoFS" #videoFS>
+      <video
+        class="video"
+        [src]="movieUrl"
+        #videoPlayer></video>
       <div class="controls">
         <div class="orange-bar" style="cursor: pointer" #progress>
           <div class="orange-juice" #bar>
@@ -23,24 +26,15 @@
           <button class="Vol" (click)="togglVolDown(videoPlayer, voldown)" #voldown>
             <i class="far fa-minus-square"></i>
           </button>
-          <button class="Full" (click)="togglFullScreen(videoPlayer)">
-            <i class="far fa-square"></i>
+          <button class="Full" (click)="togglFullScreen()">
+            <i class="fas fa-compress"></i>
           </button>
-          <button style="float: right" class="Full" (click)="goBack()">
-            <i class="far fa-times-circle"></i>
+          <button  class="closeVideo" (click)="goBack()">
+              <i class="far fa-times-circle"></i>
           </button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!--
-  <video
-    id="my-video"
-    controls
-    preload="auto"
-    width="100%"
-    height="100%">
-    <source src="../assets/a.mp4" type="video/mp4"/>
-  </video>
--->
+

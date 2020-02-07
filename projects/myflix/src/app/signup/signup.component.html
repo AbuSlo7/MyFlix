@@ -1,9 +1,6 @@
 <div class="container-fluid" style="padding: 0px" *ngIf="signup">
   <div class="row vertical-align" style=" width: 100%; margin: 0px; padding: 25px">
     <div class="col-6"><h1 (click)="goMain()" style="color: #E50914; font-weight: bold; cursor: pointer">MyFlix</h1></div>
-    <div class="col-6">
-      <div style="float: right; font-size: large; color: black; font-weight: bold">Sign in</div>
-    </div>
   </div>
   <div style="border-bottom-style: solid; border-color: grey; border-width: 1px;"></div>
   <div class="row" style="padding-top: 100px">
@@ -18,6 +15,7 @@
       <span>MyFlix is personalised for you. Create</span><br>
       <span>a password to watch MyFlix on any</span><br>
       <span>device at any time.</span><br><br>
+      <!--f1to2-->
       <span (click)="f1to2()" class="btn btn-danger" style="padding: 10px 100px; margin-bottom: 100px">CONTINUE</span>
     </div>
   </div>
@@ -30,10 +28,11 @@
       <span>Create your account.</span><br><br>
       <form style="padding: 0px 500px">
         <div class="form-group">
-          <input type="email" class="form-control" id="InputEmail1" placeholder="Email">
+          <input type="email" class="form-control" id="InputEmail1" placeholder="Email" name="email" [(ngModel)]="Email" disabled>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
+          <input type="password" class="form-control" id="InputPassword1" placeholder="Password" name="pass" [(ngModel)]="Pass">
+          <span style="color: red" *ngIf="PassChick">* Password must be between 6 and 12</span>
         </div>
       </form>
       <span (click)="f2to3()" class="btn btn-danger" style="padding: 10px 100px; margin-bottom: 100px">CONTINUE</span>
@@ -50,19 +49,36 @@
       </div><br><br>
       <form style="padding: 0px 500px">
         <div class="form-group">
-          <input  type="text" class="form-control" id="fname" name="fname" placeholder="First Name" pattern="^[A-Za-z \u0600-\u06FF]+$" required>
+          <input  type="text" class="form-control"  name="Fname" placeholder="First Name" pattern="^[A-Za-z \u0600-\u06FF]+$" [(ngModel)]="Fname" required>
+          <span *ngIf="FnameCheck" style="color: red">{{FnameCheckText}}</span>
         </div>
         <div class="form-group">
-          <input  type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" pattern="^[A-Za-z \u0600-\u06FF]+$" required>
+          <input  type="text" class="form-control"  name="Lname" placeholder="Last Name" pattern="^[A-Za-z \u0600-\u06FF]+$" [(ngModel)]="Lname" required>
+          <span *ngIf="LnameCheck" style="color: red">{{LnameCheckText}}</span>
         </div>
         <div class="form-group">
-          <input type="number" class="form-control" id="CardNo" name="CardNo" placeholder="Card Number" required>
+          <input type="number" class="form-control" name="CardNo" placeholder="Card Number" [(ngModel)]="CardNo" required>
+          <span *ngIf="CardNoCheck" style="color: red">{{CardNoCheckText}}</span>
         </div>
         <div class="form-group">
-            <input class="form-control" type="date" id="date-input" placeholder="Expiry Date (MM/YY)" required>
+          <div class="row">
+            <div class="col-6">
+              <select class="form-control" name="DateMonth" [(ngModel)]="DateMonth" required>
+                <option *ngFor="let month of months">{{month}}</option>
+              </select>
+              <span *ngIf="DateCheckMonth" style="color: red">{{DateCheckMonthText}}</span>
+            </div>
+            <div class="col-6">
+              <select class="form-control" name="DateYear" [(ngModel)]="DateYear" required>
+                <option *ngFor="let year of years">{{year}}</option>
+              </select>
+              <span *ngIf="DateCheckYear" style="color: red">{{DateCheckYearText}}</span>
+            </div>
+          </div>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="CVV" placeholder="CVV">
+          <input type="password" class="form-control" name="CVV" placeholder="CVV" [(ngModel)]="CVV">
+          <span *ngIf="CVVCheck" style="color: red">{{CVVCheckText}}</span>
         </div>
       </form>
       <span (click)="f3to4()" class="btn btn-danger" style="padding: 10px 100px">START PAID MEMBERSHIP</span>
@@ -75,43 +91,150 @@
       <span>you can cancel online anytime</span><br><br>
       <h3>Your Account Details:</h3>
       <div>
-        <p>Name:</p>
-        <p>Email:</p>
-        <p>Payment Information:</p>
-        <p class="alert alert-success" style="margin-right: 550px; margin-left: 550px">Confirmed</p>
+        <p>Name: {{Fname + ' ' + Lname}}</p>
+        <p>Email: {{Email}}</p>
+        <p>Payment Information: {{'*****' + CardNo.toString().charAt(12) + CardNo.toString().charAt(13) + CardNo.toString().charAt(14) + CardNo.toString().charAt(15)}}</p>
+        <p class="alert alert-success" style="margin-right: 400px; margin-left: 400px">Confirmed</p>
         <span (click)="f4to5()" class="btn btn-danger" style="padding: 10px 100px; margin-bottom: 100px;">CONTINUE</span>
       </div>
     </div>
   </div>
   <div class="row" *ngIf="step5">
     <div class="col-12" style="text-align: center">
-      <h2><i style="color: green" class="far fa-check-circle"></i>UserName, choose Genres and Movies</h2>
+      <h2><i style="color: green" class="far fa-check-circle"></i>{{Fname + ' '+ Lname}}, choose Genres and Movies</h2>
       <span>it will help us find movies you like</span><br>
       <br>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-10" style="margin-top: 40px">
       <h3>Genres:</h3>
-      <form>
-        <div class="form-check">
-          <label class="form-check-label" for="action">
-            Action:
-          </label>
-          <input class="form-check-input" type="checkbox" id="action">
-        </div>
-        <div class="form-check">
-          <label class="form-check-label" for="Comedy">
-            Comedy:
-          </label>
-          <input class="form-check-input" type="checkbox" id="Comedy">
-        </div>
-        <div class="form-check">
-          <label class="form-check-label" for="Thriller">
-            Thriller:
-          </label>
-          <input class="form-check-input" type="checkbox" id="Thriller">
-        </div>
-      </form>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-8">
+      <ul>
+        <li style="text-align: center"><input type="checkbox" id="cb1" [(ngModel)]="isAction"/>
+          <label for="cb1"><img src="../assets/genres/Action.ico" /></label>
+          <span style="font-weight: bold">{{genres[0].Genre}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="cb2" [(ngModel)]="isAnimation"/>
+          <label for="cb2"><img src="../assets/genres/Animation.ico" /></label>
+          <span style="font-weight: bold">{{genres[1].Genre}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="cb3" [(ngModel)]="isComedy"/>
+          <label for="cb3"><img src="../assets/genres/Comedy.ico" /></label>
+          <span style="font-weight: bold">{{genres[2].Genre}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="cb4" [(ngModel)]="isCrime"/>
+          <label for="cb4"><img src="../assets/genres/Crime.ico" /></label>
+          <span style="font-weight: bold">{{genres[3].Genre}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-2"></div>
+    <div class="col-8">
+      <ul>
+        <li style="text-align: center"><input type="checkbox" id="cb5" [(ngModel)]="isDrama"/>
+          <label for="cb5"><img src="../assets/genres/Drama.ico" /></label>
+          <span style="font-weight: bold">{{genres[4].Genre}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="cb6" [(ngModel)]="isHorror"/>
+          <label for="cb6"><img src="../assets/genres/Horror.ico" /></label>
+          <span style="font-weight: bold">{{genres[5].Genre}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="cb7" [(ngModel)]="isRomance"/>
+          <label for="cb7"><img src="../assets/genres/Romance.ico" /></label>
+          <span style="font-weight: bold">{{genres[6].Genre}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="cb8" [(ngModel)]="isSciFi"/>
+          <label for="cb8"><img src="../assets/genres/SciFi.ico" /></label>
+          <span style="font-weight: bold">{{genres[7].Genre}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-2"></div>
+    <div class="col-10" style="margin-top: 40px">
       <h3>Movies:</h3>
-      <div>Will See</div>
-      <span (click)="f4to5()" class="btn btn-danger" style="padding: 10px 100px">CONTINUE</span>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-8">
+      <ul>
+        <li style="text-align: center"><input type="checkbox" id="mv1" [(ngModel)]="isMv1"/>
+          <label for="mv1"><img src="../assets/movies/abominable.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[0].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv2" [(ngModel)]="isMv2"/>
+          <label for="mv2"><img src="../assets/movies/longShot.png" /></label>
+          <span style="font-weight: bold">{{movieIDs[1].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv3" [(ngModel)]="isMv3"/>
+          <label for="mv3"><img src="../assets/movies/jocker.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[2].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv4" [(ngModel)]="isMv4"/>
+          <label for="mv4"><img src="../assets/movies/fast.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[3].movieName}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-2"></div>
+    <div class="col-8">
+      <ul>
+        <li style="text-align: center"><input type="checkbox" id="mv5" [(ngModel)]="isMv5"/>
+          <label for="mv5"><img src="../assets/movies/domino.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[4].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv6" [(ngModel)]="isMv6"/>
+          <label for="mv6"><img src="../assets/movies/mid.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[5].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv7" [(ngModel)]="isMv7"/>
+          <label for="mv7"><img src="../assets/movies/us.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[6].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv8" [(ngModel)]="isMv8"/>
+          <label for="mv8"><img src="../assets/movies/DrSleep.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[7].movieName}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-2"></div>
+    <div class="col-8">
+      <ul>
+        <li style="text-align: center"><input type="checkbox" id="mv9" [(ngModel)]="isMv9"/>
+          <label for="mv9"><img src="../assets/movies/brightburn.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[8].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv10" [(ngModel)]="isMv10"/>
+          <label for="mv10"><img src="../assets/movies/alladin.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[9].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv11" [(ngModel)]="isMv11"/>
+          <label for="mv11"><img src="../assets/movies/dark.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[10].movieName}}</span>
+        </li>
+        <li style="text-align: center"><input type="checkbox" id="mv12" [(ngModel)]="isMv12"/>
+          <label for="mv12"><img src="../assets/movies/glass_.jpg" /></label>
+          <span style="font-weight: bold">{{movieIDs[11].movieName}}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-1"></div>
+    <div class="col-9" style="text-align: center; margin-top: 75px">
+      <span (click)="final()" class="btn btn-danger" style="padding: 10px 100px; margin-bottom: 100px;">CONTINUE</span>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-12" *ngIf="error" style="text-align: center">
+      <span class="alert alert-danger">Internal Error</span>
+    </div>
+  </div>
+  <div class="row" *ngIf="step6">
+    <div class="col-12" style="text-align: center">
+      <h3>{{Fname + ' ' + Lname + ' '}}Your Account is ready, you can <span style="color: red; cursor: pointer" (click)="goLogin()">Login here</span></h3>
     </div>
   </div>
 </div>
