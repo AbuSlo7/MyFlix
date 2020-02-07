@@ -54,6 +54,8 @@ export class BrowseComponent implements OnInit {
   fileName = '';
   fileSize = '';
   widthP = '';
+  addListbtn = true;
+  addedListbtn = false;
   poster = '';
   ListRES = [];
   movieName = '';
@@ -129,6 +131,8 @@ export class BrowseComponent implements OnInit {
         this.ngOnInit();
       }
     });
+    this.addedListbtn = false;
+    this.addListbtn = true;
   }
   goBrowse() {
     this.router.navigate(['/browse']);
@@ -154,6 +158,8 @@ export class BrowseComponent implements OnInit {
     this.poster = movie.MoviePoster;
     this.movieUrl = movie.MovieUrl;
     this.trailer = movie.MovieTrailer;
+    this.addedListbtn = false;
+    this.addListbtn = true;
     const player = this.elRef.nativeElement.querySelector('video');
     player.load();
   }
@@ -217,6 +223,8 @@ export class BrowseComponent implements OnInit {
     this.isUpload = false;
     this.isMyList = false;
     this.isSearch = false;
+    this.addedListbtn = false;
+    this.addListbtn = true;
     this.mainSurce = this.url + movie.MovieTrailer;
     this.poster = movie.MoviePoster;
     this.movieUrl = movie.MovieUrl;
@@ -306,6 +314,8 @@ export class BrowseComponent implements OnInit {
     });
   }
   addList() {
+    this.addedListbtn = true;
+    this.addListbtn = false;
     const insert = new FormData();
     insert.set('Code', this.Code);
     insert.set('Mname', this.MovieName);
