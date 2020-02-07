@@ -7,6 +7,7 @@ import {Movies} from '../movie';
 import {WatchService} from '../watch.service';
 import {AnalyticsService} from 'analytics';
 import {UserService} from '../user.service';
+import {HttpClient, HttpEventType} from '@angular/common/http';
 
 @Component({
   selector: 'app-browse',
@@ -47,13 +48,35 @@ export class BrowseComponent implements OnInit {
   mainSurce = '';
   mute = true;
   unmute = false;
+  selectedFile: File = null;
+  selectedFile2: File = null;
+  selectedFile3: File = null;
+  fileName = '';
+  fileSize = '';
+  widthP = '';
+  poster = '';
+  ListRES = [];
+  movieName = '';
+  movieGenre = '';
+  movieDescription = '';
+  movieBoxOffice = '';
+  movieStarring = '';
+  movieDirector = '';
+  showProgress = false;
+  fileName2 = '';
+  fileSize2 = '';
+  fileName3 = '';
+  fileSize3 = '';
+  trailer = '';
+  movieUrl = '';
   constructor(private router: Router,
               private shared: SharedService,
               private movies: MoviesService,
               private elRef: ElementRef,
               private watch: WatchService,
               private analytic: AnalyticsService,
-              private user: UserService) {}
+              private user: UserService,
+              private http: HttpClient) {}
 
   ngOnInit() {
     this.shared.isBrowse.subscribe((browse) => this.browse = browse);
@@ -128,6 +151,9 @@ export class BrowseComponent implements OnInit {
     this.MovieBoxOffice = movie.MovieBoxOffice;
     this.MovieStarring = movie.MovieStarring;
     this.MovieDirector = movie.MovieDirector;
+    this.poster = movie.MoviePoster;
+    this.movieUrl = movie.MovieUrl;
+    this.trailer = movie.MovieTrailer;
     const player = this.elRef.nativeElement.querySelector('video');
     player.load();
   }
@@ -172,6 +198,9 @@ export class BrowseComponent implements OnInit {
       this.isMyList = false;
     }
     this.isSearch = false;
+    const list = new FormData();
+    list.set('Code', this.Code);
+    this.movies.getMyList(list).subscribe((lis) => this.ListRES = lis);
   }
   searchBtn() {
     this.isProfile = false;
@@ -189,6 +218,26 @@ export class BrowseComponent implements OnInit {
     this.isMyList = false;
     this.isSearch = false;
     this.mainSurce = this.url + movie.MovieTrailer;
+    this.poster = movie.MoviePoster;
+    this.movieUrl = movie.MovieUrl;
+    this.trailer = movie.MovieTrailer;
+    this.MovieName = movie.MovieName;
+    this.MovieDescription = movie.MovieDescription;
+    this.MovieBoxOffice = movie.MovieBoxOffice;
+    this.MovieStarring = movie.MovieStarring;
+    this.MovieDirector = movie.MovieDirector;
+    const player = this.elRef.nativeElement.querySelector('video');
+    player.load();
+  }
+  listShow(movie: Movies) {
+    this.isProfile = false;
+    this.isUpload = false;
+    this.isMyList = false;
+    this.isSearch = false;
+    this.mainSurce = this.url + movie.MovieTrailer;
+    this.poster = movie.MoviePoster;
+    this.movieUrl = movie.MovieUrl;
+    this.trailer = movie.MovieTrailer;
     this.MovieName = movie.MovieName;
     this.MovieDescription = movie.MovieDescription;
     this.MovieBoxOffice = movie.MovieBoxOffice;
@@ -202,5 +251,71 @@ export class BrowseComponent implements OnInit {
     this.router.navigate(['/']);
     this.shared.isBrowse.next(false);
     this.shared.isMain.next(true);
+  }
+  onFileSelected(event) {
+    this.selectedFile = <File> event.target.files[0];
+    this.fileName = this.selectedFile.name;
+    this.fileSize = this.selectedFile.size / 1024 + 'KB';
+  }
+  onFileSelected2(event) {
+    this.selectedFile2 = <File> event.target.files[0];
+    this.fileName2 = this.selectedFile2.name;
+    this.fileSize2 = this.selectedFile2.size / 1024 + 'KB';
+  }
+  onFileSelected3(event) {
+    this.selectedFile3 = <File> event.target.files[0];
+    this.fileName3 = this.selectedFile3.name;
+    this.fileSize3 = this.selectedFile3.size / 1024 + 'KB';
+  }
+  UploadFile1() {
+    const fd = new FormData();
+    fd.append('image', this.selectedFile);
+    this.http.post('http://movies.saleh.cloud/uploadPoster.php', fd, {
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe((event) => {
+      this.showProgress = true;
+      if (event.type === HttpEventType.UploadProgress) {
+        this.widthP = Math.round(event.loaded / event.total * 100) + '%';
+      } else if (event.type === HttpEventType.Response) {
+        this.showProgress = false;
+        this.poster = event.body.toString();
+        if (this.poster.length > 0) {
+          console.log(this.poster);
+        }
+      }
+    });
+  }
+  UploadFile2() {
+    const fd = new FormData();
+    fd.append('file', this.selectedFile2);
+    this.http.post('http://movies.saleh.cloud/uploadTrailer.php', fd, {
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe((event) => {
+      this.showProgress = true;
+      if (event.type === HttpEventType.UploadProgress) {
+        this.widthP = Math.round(event.loaded / event.total * 100) + '%';
+      } else if (event.type === HttpEventType.Response) {
+        this.showProgress = false;
+        this.trailer = event.body.toString();
+        if (this.trailer.length > 0) {
+          console.log(this.trailer);
+        }
+      }
+    });
+  }
+  addList() {
+    const insert = new FormData();
+    insert.set('Code', this.Code);
+    insert.set('Mname', this.MovieName);
+    insert.set('MDesc', this.MovieDescription);
+    insert.set('MBox', this.MovieBoxOffice);
+    insert.set('MCast', this.MovieStarring);
+    insert.set('MDir', this.MovieDirector);
+    insert.set('MPoster', this.poster);
+    insert.set('MUrl', this.movieUrl);
+    insert.set('MTrai', this.trailer);
+    this.movies.insertMyList(insert).subscribe((ins) => {});
   }
 }

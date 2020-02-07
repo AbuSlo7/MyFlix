@@ -48,4 +48,10 @@ export class MoviesService {
   searchMovie(body: FormData): Observable<Movies[]> {
     return this.http.post<Movies[]>('http://movies.saleh.cloud/api/searchMovie.php', body);
   }
+  insertMyList(body: FormData): Observable<string> {
+    return this.http.post<string>('http://movies.saleh.cloud/api/myListinsert.php', body);
+  }
+  getMyList(body: FormData): Observable<Movies[]> {
+    return this.http.post<Movies[]>('http://movies.saleh.cloud/api/getMyList.php', body);
+  }
 }
