@@ -13,15 +13,15 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
   saveUser(body: FormData): Observable<User> {
-    return this.http.post<User>('http://users-app/api/userSave.php', body);
+    return this.http.post<User>('http://users.saleh.cloud/api/userSave.php', body);
   }
   getCodes(): Observable<Codes[]> {
-    return this.http.get<Codes[]>('http://users-app/api/getCodes.php');
+    return this.http.get<Codes[]>('http://users.saleh.cloud/api/getCodes.php');
   }
   login(body: FormData): Observable<Userobj> {
-    return this.http.post<Userobj>('http://users-app/api/login.php', body);
+    return this.http.post<Userobj>('http://users.saleh.cloud/api/login.php', body);
   }
   sendEmail(body: FormData): Observable<number> {
-    return this.http.post<number>('http://users-app/sendEmail.php', body);
+    return this.http.post<number>('http://saleh-myflix.email/sendEmail.php', body);
   }
 }

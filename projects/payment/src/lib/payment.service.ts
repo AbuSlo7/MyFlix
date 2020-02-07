@@ -29,6 +29,6 @@ export class PaymentService {
   public CVVCheck = new BehaviorSubject<boolean>(false);
 
   savePayment(body: FormData): Observable<User> {
-    return this.http.post<User>('http://payment-app/api/paymentSave.php', body);
+    return this.http.post<User>('http://payment.saleh.cloud/api/paymentSave.php', body);
   }
 }
